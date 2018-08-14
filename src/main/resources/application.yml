@@ -1,0 +1,81 @@
+# 激活 application-dev.xml配置文件
+#查看springboot开启了哪些配置
+debug: false
+
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    name: test
+    url: jdbc:mysql://127.0.0.1:3306/test
+    username: root
+    password: admin
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    dbcp2:
+      max-idle: 2
+      max-wait-millis: 6000
+    tomcat:
+      max-active: 2
+      initial-size: 2
+      test-while-idle: true
+#spring:
+#    datasource:
+#        name: orderdb
+#        url: jdbc:mysql://127.0.0.1:3306/orderdb
+#        username: root
+#        password:mineroot
+#        # 使用druid数据源
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        filters: stat
+#        maxActive: 20
+#        initialSize: 1
+#        maxWait: 60000
+#        minIdle: 1
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: select 'x'
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        poolPreparedStatements: true
+#        maxOpenPreparedStatements: 20
+
+---
+#开发环境配置
+spring:
+  profiles: dev
+
+server:
+  port: 8080
+
+mybatis:
+  # 实体类的位置
+  type-aliases-package: com.gara.lock_demo.domain.*
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+logging:
+  config: classpath:log4j2_dev.xml
+
+
+---
+#测试环境配置
+spring:
+  profiles: test
+
+server:
+  port: 8081
+logging:
+  config: classpath:log4j2_dev.xml
+
+---
+#生产环境配置
+
+spring:
+  profiles: pro
+
+server:
+  port: 8082
