@@ -14,4 +14,26 @@
     <select id = "findOrderById" resultMap = "result">
         SELECT * FROM t_order where orderId = #{orderid};
     </select>
+
+    <update id="update" parameterType="com.gara.lock_demo.domain.Order"
+            flushCache="true">
+		update t_order
+		set orderStatus =
+		#{orderStatus,jdbcType=VARCHAR},
+		orderMoney =#{orderMoney,jdbcType=VARCHAR},
+		version =#{version,jdbcType=VARCHAR}
+		where
+		orderId = #{orderId,jdbcType=VARCHAR}
+	</update>
+
+    <insert id="updateByVersion" parameterType="com.gara.lock_demo.domain.Order"
+            flushCache="true">
+	 <![CDATA[	update t_order
+		set orderStatus =
+		#{orderStatus,jdbcType=VARCHAR},version = version+1
+		where
+		orderId = #{orderId,jdbcType=VARCHAR} and verison = #{verison}
+	  ]]>
+	</insert>
+
 </mapper>

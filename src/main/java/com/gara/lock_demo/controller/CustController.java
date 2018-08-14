@@ -37,4 +37,12 @@ public class CustController {
         Order order = orderService.findOrderById(orderid);
         return orderService.sendOrder(order);
     }
+
+    @RequestMapping("/sendOrderByTemplate")
+    @ResponseBody
+    public String sendOrderByTemplate(@RequestParam(required = true) String orderid){
+        Order order = orderService.findOrderById(orderid);
+        return orderService.sendOrderByTemplate(order);
+    }
+
 }
