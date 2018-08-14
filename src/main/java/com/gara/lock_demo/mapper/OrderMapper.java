@@ -13,4 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface OrderMapper {
 
     Order findOrderById(String orderId);
+    int update(Order order);
+    int updateByVersion(Order order);
 }

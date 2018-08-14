@@ -12,5 +12,7 @@ import org.springframework.stereotype.Service;
 public interface OrderService {
 
     public String sendOrder(Order order);
+    public String sendOrderByTemplate(Order order);
+    public String sendOrderByTemplateThread(Order order);
     public Order findOrderById(String orderId);
 }
