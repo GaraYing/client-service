@@ -16,7 +16,14 @@ public class TransServiceImpl implements TransService {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    
+    /** 
+    * @Description: 获取发货系统返回数据
+    * @Param: [url, orderid]
+    * @return: java.lang.String
+    * @Author: GaraYing
+    * @Date: 2018/8/15 17:12
+    */
     @Override
     public String invoke(String url, String orderid) {
         return restTemplate.getForEntity(url+orderid,String.class).getBody();
