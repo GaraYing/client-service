@@ -5,7 +5,6 @@ debug: false
 spring:
   profiles:
     active: dev
-
   datasource:
     name: test
     url: jdbc:mysql://127.0.0.1:3306/test
@@ -59,7 +58,9 @@ mybatis:
 
 logging:
   config: classpath:log4j2_dev.xml
-
+  # 打印sql语句
+  level:
+    com.gara.lock_demo.mapper: debug
 
 ---
 #测试环境配置

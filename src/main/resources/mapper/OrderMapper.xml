@@ -2,38 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "com.gara.lock_demo.mapper.OrderMapper">
+<mapper namespace="com.gara.lock_demo.mapper.OrderMapper">
 
-    <resultMap id = "result" type = "com.gara.lock_demo.domain.Order">
-        <result property = "orderId" column = "orderid"/>
-        <result property = "orderTime" column = "ordertime"/>
-        <result property = "orderMoney" column = "ordermoney"/>
-        <result property = "orderStatus" column = "orderstatus"/>
-        <result property = "version" column = "version"/>
+    <resultMap id="result" type="com.gara.lock_demo.domain.Order">
+        <result property="orderId" column="orderid"/>
+        <result property="orderTime" column="ordertime"/>
+        <result property="orderMoney" column="ordermoney"/>
+        <result property="orderStatus" column="orderstatus"/>
+        <result property="version" column="version"/>
     </resultMap>
-    <select id = "findOrderById" resultMap = "result">
+    <select id="findOrderById" resultMap="result">
         SELECT * FROM t_order where orderId = #{orderid};
     </select>
 
     <update id="update" parameterType="com.gara.lock_demo.domain.Order"
             flushCache="true">
+		<![CDATA[
+
 		update t_order
 		set orderStatus =
-		#{orderStatus,jdbcType=VARCHAR},
-		orderMoney =#{orderMoney,jdbcType=VARCHAR},
-		version =#{version,jdbcType=VARCHAR}
+		#{orderStatus,jdbcType=VARCHAR}
 		where
 		orderId = #{orderId,jdbcType=VARCHAR}
+
+		]]>
 	</update>
 
     <insert id="updateByVersion" parameterType="com.gara.lock_demo.domain.Order"
             flushCache="true">
-	 <![CDATA[	update t_order
+	 <![CDATA[
+
+        update t_order
 		set orderStatus =
-		#{orderStatus,jdbcType=VARCHAR},version = version+1
+		#{orderStatus,jdbcType=VARCHAR},
+		version = version+1
 		where
-		orderId = #{orderId,jdbcType=VARCHAR} and verison = #{verison}
-	  ]]>
+		orderId = #{orderId,jdbcType=VARCHAR} and version = #{version}
+
+        ]]>
 	</insert>
 
 </mapper>

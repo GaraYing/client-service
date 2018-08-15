@@ -25,7 +25,7 @@ public class CustController {
 
     @RequestMapping("/query")
     @ResponseBody
-    public Object query(@RequestParam(required = true) String orderid){
+    public Object query(@RequestParam(required = true) String orderid) {
         Order order = orderService.findOrderById(orderid);
         return order;
     }
@@ -33,23 +33,40 @@ public class CustController {
 
     @RequestMapping("/sendOrder")
     @ResponseBody
-    public String sendOrder(@RequestParam(required = true) String orderid){
+    public String sendOrder(@RequestParam(required = true) String orderid) {
         Order order = orderService.findOrderById(orderid);
         return orderService.sendOrder(order);
     }
 
     @RequestMapping("/sendOrderByTemplate")
     @ResponseBody
-    public String sendOrderByTemplate(@RequestParam(required = true) String orderid){
+    public String sendOrderByTemplate(@RequestParam(required = true) String orderid) {
         Order order = orderService.findOrderById(orderid);
         return orderService.sendOrderByTemplate(order);
     }
 
     @RequestMapping("/sendOrderByTemplateThread")
     @ResponseBody
-    public String sendOrderByTemplateThread(@RequestParam(required = true) String orderid){
+    public String sendOrderByTemplateThread(@RequestParam(required = true) String orderid) {
         Order order = orderService.findOrderById(orderid);
-        return orderService.sendOrderByTemplateThread(order);
+        for (int i = 0; i < 6; i++) {
+            Thread t = new Thread(new ExcuteThread(order));
+            t.start();
+        }
+        return null;
     }
 
+    private class ExcuteThread implements Runnable {
+
+        private Order order;
+
+        public ExcuteThread(Order order) {
+            this.order = order;
+        }
+
+        @Override
+        public void run() {
+            orderService.sendOrderByTemplateThread(order);
+        }
+    }
 }

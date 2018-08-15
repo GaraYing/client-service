@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LockDemoApplication_Client {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LockDemoApplication_Client.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LockDemoApplication_Client.class, args);
+    }
 }

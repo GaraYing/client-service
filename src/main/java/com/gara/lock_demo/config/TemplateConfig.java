@@ -15,10 +15,10 @@ import org.springframework.web.client.RestTemplate;
 public class TemplateConfig {
 
     @Bean
-    RestTemplate restTemplate(){
+    RestTemplate restTemplate() {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(100000);
-        requestFactory.setReadTimeout(100000);
+        requestFactory.setConnectTimeout(6000);
+        requestFactory.setReadTimeout(6000);
 
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         return restTemplate;
